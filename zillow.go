@@ -35,14 +35,14 @@ type Zillow interface {
 }
 
 // New creates a new zillow client.
-func New(zwsId string) Zillow {
-	return NewExt(zwsId, baseUrl)
+func New(zwsID string) Zillow {
+	return NewExt(zwsID, baseURL)
 }
 
 // NewExt creates a new zillow client.
 // It's like New but accepts more options.
-func NewExt(zwsId, baseUrl string) Zillow {
-	return &zillow{zwsId, baseUrl}
+func NewExt(zwsID, baseURL string) Zillow {
+	return &zillow{zwsID, baseURL}
 }
 
 type Message struct {
@@ -544,7 +544,7 @@ type Affordability struct {
 	AmortizationSchedule        AffordabilityAmortizationSchedule `xml:"response>amortizationschedule"`
 }
 
-const baseUrl = "https://www.zillow.com/webservice/"
+const baseURL = "https://www.zillow.com/webservice/"
 
 const (
 	zwsIdParam          = "zws-id"
@@ -600,7 +600,7 @@ const (
 )
 
 type zillow struct {
-	zwsId string
+	zwsID string
 	url   string
 }
 
@@ -615,7 +615,7 @@ func (z *zillow) get(path string, values url.Values, result interface{}) error {
 
 func (z *zillow) GetZestimate(request ZestimateRequest) (*ZestimateResult, error) {
 	values := url.Values{
-		zwsIdParam:         {z.zwsId},
+		zwsIdParam:         {z.zwsID},
 		zpidParam:          {request.Zpid},
 		rentzestimateParam: {strconv.FormatBool(request.Rentzestimate)},
 	}
@@ -629,7 +629,7 @@ func (z *zillow) GetZestimate(request ZestimateRequest) (*ZestimateResult, error
 
 func (z *zillow) GetSearchResults(request SearchRequest) (*SearchResults, error) {
 	values := url.Values{
-		zwsIdParam:         {z.zwsId},
+		zwsIdParam:         {z.zwsID},
 		addressParam:       {request.Address},
 		cityStateZipParam:  {request.CityStateZip},
 		rentzestimateParam: {strconv.FormatBool(request.Rentzestimate)},
@@ -644,7 +644,7 @@ func (z *zillow) GetSearchResults(request SearchRequest) (*SearchResults, error)
 
 func (z *zillow) GetChart(request ChartRequest) (*ChartResult, error) {
 	values := url.Values{
-		zwsIdParam:         {z.zwsId},
+		zwsIdParam:         {z.zwsID},
 		zpidParam:          {request.Zpid},
 		unitTypeParam:      {request.UnitType},
 		widthParam:         {strconv.Itoa(request.Width)},
@@ -661,7 +661,7 @@ func (z *zillow) GetChart(request ChartRequest) (*ChartResult, error) {
 
 func (z *zillow) GetComps(request CompsRequest) (*CompsResult, error) {
 	values := url.Values{
-		zwsIdParam:         {z.zwsId},
+		zwsIdParam:         {z.zwsID},
 		zpidParam:          {request.Zpid},
 		countParam:         {strconv.Itoa(request.Count)},
 		rentzestimateParam: {strconv.FormatBool(request.Rentzestimate)},
@@ -676,7 +676,7 @@ func (z *zillow) GetComps(request CompsRequest) (*CompsResult, error) {
 
 func (z *zillow) GetDeepComps(request CompsRequest) (*DeepCompsResult, error) {
 	values := url.Values{
-		zwsIdParam:         {z.zwsId},
+		zwsIdParam:         {z.zwsID},
 		zpidParam:          {request.Zpid},
 		countParam:         {strconv.Itoa(request.Count)},
 		rentzestimateParam: {strconv.FormatBool(request.Rentzestimate)},
@@ -691,7 +691,7 @@ func (z *zillow) GetDeepComps(request CompsRequest) (*DeepCompsResult, error) {
 
 func (z *zillow) GetDeepSearchResults(request SearchRequest) (*DeepSearchResults, error) {
 	values := url.Values{
-		zwsIdParam:         {z.zwsId},
+		zwsIdParam:         {z.zwsID},
 		addressParam:       {request.Address},
 		cityStateZipParam:  {request.CityStateZip},
 		rentzestimateParam: {strconv.FormatBool(request.Rentzestimate)},
@@ -706,7 +706,7 @@ func (z *zillow) GetDeepSearchResults(request SearchRequest) (*DeepSearchResults
 
 func (z *zillow) GetUpdatedPropertyDetails(request UpdatedPropertyDetailsRequest) (*UpdatedPropertyDetails, error) {
 	values := url.Values{
-		zwsIdParam: {z.zwsId},
+		zwsIdParam: {z.zwsID},
 		zpidParam:  {request.Zpid},
 	}
 	var result UpdatedPropertyDetails
@@ -719,7 +719,7 @@ func (z *zillow) GetUpdatedPropertyDetails(request UpdatedPropertyDetailsRequest
 
 func (z *zillow) GetRegionChildren(request RegionChildrenRequest) (*RegionChildren, error) {
 	values := url.Values{
-		zwsIdParam:     {z.zwsId},
+		zwsIdParam:     {z.zwsID},
 		regionIdParam:  {request.RegionId},
 		stateParam:     {request.State},
 		countryParam:   {request.Country},
@@ -736,7 +736,7 @@ func (z *zillow) GetRegionChildren(request RegionChildrenRequest) (*RegionChildr
 
 func (z *zillow) GetRegionChart(request RegionChartRequest) (*RegionChartResult, error) {
 	values := url.Values{
-		zwsIdParam:         {z.zwsId},
+		zwsIdParam:         {z.zwsID},
 		cityParam:          {request.City},
 		stateParam:         {request.State},
 		neighboorhoodParam: {request.Neighborhood},
@@ -756,7 +756,7 @@ func (z *zillow) GetRegionChart(request RegionChartRequest) (*RegionChartResult,
 
 func (z *zillow) GetRateSummary(request RateSummaryRequest) (*RateSummary, error) {
 	values := url.Values{
-		zwsIdParam: {z.zwsId},
+		zwsIdParam: {z.zwsID},
 		stateParam: {request.State},
 	}
 	var result RateSummary
@@ -769,7 +769,7 @@ func (z *zillow) GetRateSummary(request RateSummaryRequest) (*RateSummary, error
 
 func (z *zillow) GetMonthlyPayments(request MonthlyPaymentsRequest) (*MonthlyPayments, error) {
 	values := url.Values{
-		zwsIdParam:       {z.zwsId},
+		zwsIdParam:       {z.zwsID},
 		priceParam:       {strconv.Itoa(request.Price)},
 		downParam:        {strconv.Itoa(request.Down)},
 		dollarsDownParam: {strconv.Itoa(request.DollarsDown)},
@@ -785,7 +785,7 @@ func (z *zillow) GetMonthlyPayments(request MonthlyPaymentsRequest) (*MonthlyPay
 
 func (z *zillow) CalculateMonthlyPaymentsAdvanced(request MonthlyPaymentsAdvancedRequest) (*MonthlyPaymentsAdvanced, error) {
 	values := url.Values{
-		zwsIdParam:        {z.zwsId},
+		zwsIdParam:        {z.zwsID},
 		priceParam:        {strconv.Itoa(request.Price)},
 		downParam:         {strconv.Itoa(request.Down)},
 		amountParam:       {strconv.Itoa(request.Amount)},
@@ -808,7 +808,7 @@ func (z *zillow) CalculateMonthlyPaymentsAdvanced(request MonthlyPaymentsAdvance
 
 func (z *zillow) CalculateAffordability(request AffordabilityRequest) (*Affordability, error) {
 	values := url.Values{
-		zwsIdParam:          {z.zwsId},
+		zwsIdParam:          {z.zwsID},
 		annualIncomeParam:   {strconv.Itoa(request.AnnualIncome)},
 		monthlyPaymentParam: {strconv.Itoa(request.MonthlyPayment)},
 		downParam:           {strconv.Itoa(request.Down)},

@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	testZwsId = "test-id"
+	testZwsID = "test-id"
 
 	zpid           = "48749425"
 	address        = "2114 Bigelow Ave"
@@ -63,7 +63,7 @@ func testFixtures(t *testing.T, expectedPath string, validateQuery func(url.Valu
 			t.Errorf("expected path %q to end with %q", r.URL.Path, expectedPath)
 		}
 		values := r.URL.Query()
-		assertOnlyParam(t, values, zwsIdParam, testZwsId)
+		assertOnlyParam(t, values, zwsIdParam, testZwsID)
 		validateQuery(values)
 
 		if f, err := os.Open("testdata/" + expectedPath + ".xml"); err != nil {
@@ -72,7 +72,7 @@ func testFixtures(t *testing.T, expectedPath string, validateQuery func(url.Valu
 			t.Fatal(err)
 		}
 	}))
-	return ts, &zillow{zwsId: testZwsId, url: ts.URL}
+	return ts, &zillow{zwsID: testZwsID, url: ts.URL}
 }
 
 func TestGetZestimate(t *testing.T) {
