@@ -42,7 +42,16 @@ func New(zwsID string) Zillow {
 // NewExt creates a new zillow client.
 // It's like New but accepts more options.
 func NewExt(zwsID, baseURL string) Zillow {
-	return &zillow{zwsID, baseURL}
+	return NewExt2(zwsID, baseURL, http.DefaultClient)
+}
+
+// NewExt2 creates a new zillow client.
+// It's like NewExt2 but accepts even more options.
+// TODO: This is an extremely bad code style.
+// Zillow object should instead be publicly visible
+// and trivially constructable.
+func NewExt2(zwsID, baseURL string, client *http.Client) Zillow {
+	return &zillow{zwsID, baseURL, client}
 }
 
 type Message struct {
@@ -602,6 +611,8 @@ const (
 type zillow struct {
 	zwsID string
 	url   string
+
+	HTTPClient *http.Client
 }
 
 func (z *zillow) get(path string, values url.Values, result interface{}) error {
