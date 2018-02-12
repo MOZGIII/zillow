@@ -36,7 +36,7 @@ type Zillow interface {
 
 // New creates a new zillow client.
 func New(zwsID string) Zillow {
-	return NewExt(zwsID, baseURL)
+	return NewExt(zwsID, BaseURL)
 }
 
 // NewExt creates a new zillow client.
@@ -553,7 +553,8 @@ type Affordability struct {
 	AmortizationSchedule        AffordabilityAmortizationSchedule `xml:"response>amortizationschedule"`
 }
 
-const baseURL = "https://www.zillow.com/webservice/"
+// BaseURL is an official Zillow base URL.
+const BaseURL = "https://www.zillow.com/webservice/"
 
 const (
 	zwsIdParam          = "zws-id"
