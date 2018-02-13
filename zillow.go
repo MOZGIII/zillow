@@ -617,7 +617,7 @@ type zillow struct {
 }
 
 func (z *zillow) get(path string, values url.Values, result interface{}) error {
-	if resp, err := http.Get(z.url + "/" + path + ".htm?" + values.Encode()); err != nil {
+	if resp, err := z.HTTPClient.Get(z.url + "/" + path + ".htm?" + values.Encode()); err != nil {
 		return err
 	} else if err = xml.NewDecoder(resp.Body).Decode(result); err != nil {
 		return err
